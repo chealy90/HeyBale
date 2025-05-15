@@ -1,0 +1,3 @@
+Lemon Yellow: #FFF176
+Off White: #FFFEF7 
+Light Grey: #BDBDBD
