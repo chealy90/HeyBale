@@ -15,7 +15,7 @@ export default function Header(){
 const styles = StyleSheet.create({
     header: {
         width: '100%',
-        height: 80,
+        height: 70,
         backgroundColor: '#FFF176',
         padding: 10,
         display: 'flex',
@@ -26,12 +26,13 @@ const styles = StyleSheet.create({
     name: {
         paddingLeft: 10,
         fontWeight: 'bold',
-        fontSize: 25,
+        fontSize: 20,
         letterSpacing: 3
     },
 
     logo: {
-        width: 35,
+        width: 30,
+        height: 30,
         marginLeft: 15
     }
 })
