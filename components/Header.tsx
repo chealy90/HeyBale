@@ -24,9 +24,9 @@ const styles = StyleSheet.create({
     },
 
     name: {
-        paddingLeft: 10,
+        paddingLeft: 5,
         fontWeight: 'bold',
-        fontSize: 20,
+        fontSize: 17,
         letterSpacing: 3
     },
 
