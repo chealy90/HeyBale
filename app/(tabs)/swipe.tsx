@@ -11,13 +11,11 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 
 import Header from "../../components/Header"
+import SwipeCard from "../../components/SwipeCard"
 
 
 
 export default function swipeScreen(){
-    const [swiping, setSwiping] = useState(false);
-    const [swipeOffset, setSwipeOffset] = useState(0)
-
     function swipeRight(){
         console.log("swipe right")
     }
@@ -26,140 +24,40 @@ export default function swipeScreen(){
         console.log("swipe left")
     }
 
+
+
+
     return (
         <View style={{flex: 1}}>
-        <ScrollView>
-            <Header />
-            <View
-                style={{ transform: [{ translateX: swipeOffset }] }}
+            <ScrollView>
+                <Header />
+                <SwipeCard />
+            </ScrollView>
+
+            {/* Yes Button */}
+            <Pressable
+                onPress={()=>{
+                    swipeRight()
+                }}
+                style={[styles.buttonStyles, {right: 50}]}
             >
-                {/*  Main Section  */}
-                <View style={styles.mainSection}>
-                    <Image
-                        style={styles.userImage}
-                        source={{uri: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?cs=srgb&dl=pexels-pixabay-220453.jpg&fm=jpg'}}
-                    />
-                    <LinearGradient
-                        style={styles.userMainInfo}
-                        colors={['rgba(0, 0, 0, 0.8)', 'rgba(0, 0, 0, 0)']}
-                        start={{ x: 0.5, y: 1 }}
-                        end={{ x: 0.5, y: 0 }}
-                    >
-                        <Text style={[styles.primaryHeading, swiping && {color: '#000'}]}>
-                            Brian, 32
-                        </Text>
+                <Image
+                    source={require('../../assets/images/tickArrow.png')}
+                />
+            </Pressable>
 
 
-                        <View style={styles.infoLine}>
-                            <Image
-                                style={styles.infoLineLogo}
-                                source={require('../../assets/images/icons8-map-pin-20.png')}
-                            />
-                            <Text style={styles.infoLineText}>
-                                Dublin
-                            </Text>
-                        </View>
-
-
-                        <View style={styles.infoLine}>
-                            <Image
-                                style={styles.infoLineLogo}
-                                source={require('../../assets/images/icons8-briefcase-20.png')}
-                            />
-                            <Text style={styles.infoLineText}>
-                                Software Engineer at Amazon
-                            </Text>
-
-                        </View>
-                    </LinearGradient>
-                </View>
-
-                {/*  Extra Info Section  */}
-                <View style={styles.extraInfoSection}>
-                    <Text style={styles.bio}>
-                        Just a regular person who loves good conversation, pizza, and weekend adventures. Looking to meet someone genuine and kind. Let’s keep it simple and see where things go.
-                    </Text>
-                    <Text style={styles.aboutHeader}>About Brian</Text>
-                    <View style={styles.profileBubblesContainer}>
-                        <View style={styles.profileInfoBubble}>
-                            <Text>176cm</Text>
-                        </View>
-
-
-                        <View style={styles.profileInfoBubble}>
-                            <Text>Non Smoker</Text>
-                        </View>
-
-                        <View style={styles.profileInfoBubble}>
-                            <Text>Occasional Drinker</Text>
-                        </View>
-
-
-                        <View style={styles.profileInfoBubble}>
-                            <Text>Long Term</Text>
-                        </View>
-
-
-                        <View style={styles.profileInfoBubble}>
-                            <Text>Undergraduate</Text>
-                        </View>
-                    </View>
-                </View>
-
-                {/* Interests and hobbies */}
-
-                <View style={styles.extraInfoSection}>
-                    <Text style={styles.aboutHeader}>Brian's Interests</Text>
-                    <View style={styles.profileBubblesContainer}>
-                        <View style={styles.profileInfoBubble}>
-                            <Text>Video Games</Text>
-                        </View>
-
-                        <View style={styles.profileInfoBubble}>
-                            <Text>Hiking</Text>
-                        </View>
-
-                        <View style={styles.profileInfoBubble}>
-                            <Text>Craft Beer</Text>
-                        </View>
-
-                        <View style={styles.profileInfoBubble}>
-                            <Text>Rock Music</Text>
-                        </View>
-
-                    </View>
-
-
-
-                </View>
-            </View>
-
-
-        </ScrollView>
-        {/*  Yes Button */}
-        <Pressable
-            onPress={()=>{
-                swipeRight()
-            }}
-            style={[styles.buttonStyles, {right: 50}]}
-        >
-            <Image
-                source={require('../../assets/images/tickArrow.png')}
-            />
-        </Pressable>
-
-        {/* No Button */}
-        <Pressable
-            onPress={()=>{
-                swipeLeft()
-            }}
-            style={[styles.buttonStyles, {left: 50}]}
-        >
-            <Image
-                source={require('../../assets/images/crossMark.png')}
-            />
-        </Pressable>
-
+            {/* No Button */}
+            <Pressable
+                onPress={()=>{
+                    swipeLeft()
+                }}
+                style={[styles.buttonStyles, {left: 50}]}
+            >
+                <Image
+                    source={require('../../assets/images/crossMark.png')}
+                />
+            </Pressable>
 
         </View>
     )
