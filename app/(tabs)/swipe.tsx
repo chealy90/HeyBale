@@ -2,19 +2,37 @@ import { ScrollView,
         Text,
          View,
          Image,
-         StyleSheet } from "react-native"
+         StyleSheet,
+         Pressable, Button} from "react-native"
 
+
+import React, {useRef, useState} from "react"
 import { LinearGradient } from 'expo-linear-gradient';
 
 
 import Header from "../../components/Header"
 
 
+
 export default function swipeScreen(){
+    const [swiping, setSwiping] = useState(false);
+    const [swipeOffset, setSwipeOffset] = useState(0)
+
+    function swipeRight(){
+        console.log("swipe right")
+    }
+
+    function swipeLeft(){
+        console.log("swipe left")
+    }
+
     return (
+        <View style={{flex: 1}}>
         <ScrollView>
             <Header />
-            <View>
+            <View
+                style={{ transform: [{ translateX: swipeOffset }] }}
+            >
                 {/*  Main Section  */}
                 <View style={styles.mainSection}>
                     <Image
@@ -27,7 +45,7 @@ export default function swipeScreen(){
                         start={{ x: 0.5, y: 1 }}
                         end={{ x: 0.5, y: 0 }}
                     >
-                        <Text style={styles.primaryHeading}>
+                        <Text style={[styles.primaryHeading, swiping && {color: '#000'}]}>
                             Brian, 32
                         </Text>
 
@@ -87,8 +105,63 @@ export default function swipeScreen(){
                         </View>
                     </View>
                 </View>
+
+                {/* Interests and hobbies */}
+
+                <View style={styles.extraInfoSection}>
+                    <Text style={styles.aboutHeader}>Brian's Interests</Text>
+                    <View style={styles.profileBubblesContainer}>
+                        <View style={styles.profileInfoBubble}>
+                            <Text>Video Games</Text>
+                        </View>
+
+                        <View style={styles.profileInfoBubble}>
+                            <Text>Hiking</Text>
+                        </View>
+
+                        <View style={styles.profileInfoBubble}>
+                            <Text>Craft Beer</Text>
+                        </View>
+
+                        <View style={styles.profileInfoBubble}>
+                            <Text>Rock Music</Text>
+                        </View>
+
+                    </View>
+
+
+
+                </View>
             </View>
+
+
         </ScrollView>
+        {/*  Yes Button */}
+        <Pressable
+            onPress={()=>{
+                swipeRight()
+            }}
+            style={[styles.buttonStyles, {right: 50}]}
+        >
+            <Image
+                source={require('../../assets/images/tickArrow.png')}
+            />
+        </Pressable>
+
+        {/* No Button */}
+        <Pressable
+            onPress={()=>{
+                swipeLeft()
+            }}
+            style={[styles.buttonStyles, {left: 50}]}
+        >
+            <Image
+                source={require('../../assets/images/crossMark.png')}
+            />
+        </Pressable>
+
+
+        </View>
     )
 }
 
@@ -99,7 +172,10 @@ const styles = StyleSheet.create({
         margin: 'auto',
 
         position: 'relative'
+
     },
+
+
 
     userImage: {
         width: '100%',
@@ -154,7 +230,6 @@ const styles = StyleSheet.create({
         height: 'minContent',
         backgroundColor: '#FFF176',
         borderRadius: 15,
-        color: '#000',
         paddingHorizontal: 20,
         paddingVertical: 25,
         fontSize: 16,
@@ -180,6 +255,7 @@ const styles = StyleSheet.create({
         paddingVertical: 10
     },
 
+
     profileInfoBubble: {
         borderColor: '#000',
         borderRadius: 5,
@@ -193,6 +269,20 @@ const styles = StyleSheet.create({
         fontSize: 15,
         marginHorizontal: 10,
         marginVertical: 5
+    },
 
+
+    buttonStyles: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        bottom: 20,
+        width: 60,
+        height: 60,
+        color: '#fff',
+        backgroundColor: '#e8d629',
+
+        borderRadius: '50%'
     }
 })
