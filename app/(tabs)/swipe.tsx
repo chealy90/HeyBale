@@ -16,12 +16,51 @@ import SwipeCard from "../../components/SwipeCard"
 
 
 export default function swipeScreen(){
+    const [userIndex, setUserIndex] = useState(0)
+
+    const users = [
+        {
+            name: "Brian",
+            age: 32,
+            location: "Dublin",
+            occupation: "Software Developer",
+            company: "Amazon",
+            height: 176,
+            smoker: false,
+            drinker: "Occasional",
+            seeking: "Long Term",
+            education: "Undergraduate",
+            image: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?cs=srgb&dl=pexels-pixabay-220453.jpg&fm=jpg',
+            bio: 'Just a regular person who loves good conversation, pizza, and weekend adventures. Looking to meet someone genuine and kind. Let’s keep it simple and see where things go.',
+            interests: ['Video Games', 'Hiking', 'Craft Beer', 'Rock Music']
+        },
+        {
+            name: "Jim",
+            age: 30,
+            location: "Drogheda",
+            occupation: "Network Engineer",
+            company: "Cisco",
+            height: 169,
+            smoker: true,
+            drinker: "Yes",
+            seeking: "Long Term Open to Short",
+            education: "Postgraduate",
+            image: 'https://th.bing.com/th/id/OIP.PL0l_X0zaHw2On68A0KN-AHaET?rs=1&pid=ImgDetMain',
+            bio: 'Fluent in sarcasm, lover of dogs, and always down for tacos 🌮. Weekend adventurer, weekday Netflix connoisseur. Looking for someone who can match my energy and laugh at my bad jokes. Bonus points if you love coffee and can beat me at Mario Kart.',
+            interests: ['Anime', 'Dogs', 'Mexican Food']
+        }
+
+    ]
+
+
     function swipeRight(){
         console.log("swipe right")
+        setUserIndex((userIndex + 1) % users.length)
     }
 
     function swipeLeft(){
         console.log("swipe left")
+        setUserIndex((userIndex + 1) % users.length)
     }
 
 
@@ -31,7 +70,7 @@ export default function swipeScreen(){
         <View style={{flex: 1}}>
             <ScrollView>
                 <Header />
-                <SwipeCard />
+                <SwipeCard user={users[userIndex]}/>
             </ScrollView>
 
             {/* Yes Button */}

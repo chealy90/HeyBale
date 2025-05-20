@@ -14,7 +14,7 @@ import Header from "Header"
 
 
 
-export default function SwipeCard(){
+export default function SwipeCard(props){
     const [swiping, setSwiping] = useState(false);
     const [swipeOffset, setSwipeOffset] = useState(0)
 
@@ -28,7 +28,7 @@ export default function SwipeCard(){
                 <View style={styles.mainSection}>
                     <Image
                         style={styles.userImage}
-                        source={{uri: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?cs=srgb&dl=pexels-pixabay-220453.jpg&fm=jpg'}}
+                        source={{uri: props.user.image}}
                     />
                     <LinearGradient
                         style={styles.userMainInfo}
@@ -37,7 +37,7 @@ export default function SwipeCard(){
                         end={{ x: 0.5, y: 0 }}
                     >
                         <Text style={[styles.primaryHeading, swiping && {color: '#000'}]}>
-                            Brian, 32
+                            {props.user.name}, {props.user.age}
                         </Text>
 
 
@@ -47,7 +47,7 @@ export default function SwipeCard(){
                                 source={require('../assets/images/icons8-map-pin-20.png')}
                             />
                             <Text style={styles.infoLineText}>
-                                Dublin
+                                {props.user.location}
                             </Text>
                         </View>
 
@@ -58,7 +58,7 @@ export default function SwipeCard(){
                                 source={require('../assets/images/icons8-briefcase-20.png')}
                             />
                             <Text style={styles.infoLineText}>
-                                Software Engineer at Amazon
+                                {props.user.occupation} at {props.user.company}
                             </Text>
 
                         </View>
@@ -67,32 +67,33 @@ export default function SwipeCard(){
 
                 {/*  Extra Info Section  */}
                 <View style={styles.extraInfoSection}>
-                    <Text style={styles.bio}>
-                        Just a regular person who loves good conversation, pizza, and weekend adventures. Looking to meet someone genuine and kind. Let’s keep it simple and see where things go.
-                    </Text>
-                    <Text style={styles.aboutHeader}>About Brian</Text>
+                    {/*  Bio   */}
+                    <Text style={styles.bio}>{props.user.bio}</Text>
+
+                    {/*  About   */}
+                    <Text style={styles.aboutHeader}>About {props.user.name}</Text>
                     <View style={styles.profileBubblesContainer}>
                         <View style={styles.profileInfoBubble}>
-                            <Text>176cm</Text>
+                            <Text>{props.user.height}cm</Text>
                         </View>
 
 
                         <View style={styles.profileInfoBubble}>
-                            <Text>Non Smoker</Text>
+                            <Text>{props.user.smoker ? "Smoker" : "Non-smoker"}</Text>
                         </View>
 
                         <View style={styles.profileInfoBubble}>
-                            <Text>Occasional Drinker</Text>
-                        </View>
-
-
-                        <View style={styles.profileInfoBubble}>
-                            <Text>Long Term</Text>
+                            <Text>{props.user.drinker}</Text>
                         </View>
 
 
                         <View style={styles.profileInfoBubble}>
-                            <Text>Undergraduate</Text>
+                            <Text>{props.user.seeking}</Text>
+                        </View>
+
+
+                        <View style={styles.profileInfoBubble}>
+                            <Text>{props.user.education}</Text>
                         </View>
                     </View>
                 </View>
@@ -100,24 +101,13 @@ export default function SwipeCard(){
                 {/* Interests and hobbies */}
 
                 <View style={styles.extraInfoSection}>
-                    <Text style={styles.aboutHeader}>Brian's Interests</Text>
+                    <Text style={styles.aboutHeader}>{props.user.name}'s Interests</Text>
                     <View style={styles.profileBubblesContainer}>
-                        <View style={styles.profileInfoBubble}>
-                            <Text>Video Games</Text>
-                        </View>
-
-                        <View style={styles.profileInfoBubble}>
-                            <Text>Hiking</Text>
-                        </View>
-
-                        <View style={styles.profileInfoBubble}>
-                            <Text>Craft Beer</Text>
-                        </View>
-
-                        <View style={styles.profileInfoBubble}>
-                            <Text>Rock Music</Text>
-                        </View>
-
+                        {props.user.interests.map((interest, index) =>
+                            <View style={styles.profileInfoBubble} key={index}>
+                                <Text>{interest}</Text>
+                            </View>
+                        )}
                     </View>
                 </View>
             </View>
