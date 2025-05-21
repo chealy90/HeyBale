@@ -8,6 +8,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useState, useRef, useEffect} from "react"
 import 'react-native-reanimated';
+import '../firebase' //called app
 
 
 

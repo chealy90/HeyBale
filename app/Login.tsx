@@ -46,7 +46,7 @@ export default function Login(){
             <View style={styles.callToSignUp}>
                 <Text>Don't have an account?</Text>
                 <Link
-                    href=''
+                    href='Register'
                     style={styles.callToSignUpLink}
                 >
                     Sign Up
