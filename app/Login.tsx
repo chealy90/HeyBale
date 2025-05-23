@@ -44,27 +44,25 @@ export default function Login(){
             hashPassword(passwordInput)
             .then(hash => {
                 let reqBody = {"email": emailInput, "password": hash}
-                axios.post(`${serverHostAddress}/login`)
+                axios.post(`${serverHostAddress}/login`, reqBody)
                 .then(res => {
-                    //unsuccessful login
-                    if (res.data.errorMessage){
-                        setErrorMessages({email: [], password: [], loginAttempt: [...res.data.errorMessage]})
-                    }
-                    //successful login
-                    else {
-                        //update async storage
+                    if (!res.data.errorMessage){
+                        //success, redirect
                     }
 
                 })
+                .catch(error => {
+                    setErrorMessages({email: [], password: [], loginAttempt: [error.response.data.errorMessage]})
+                    setPasswordInput('')
+                })
 
             })
-
-
 
         }
         else {
             //display form error message to user
             setErrorMessages(errors)
+
         }
 
 
@@ -117,6 +115,10 @@ export default function Login(){
             >
                 <Text style={styles.loginButtonText}>Login</Text>
             </Pressable>
+
+            <Text style={styles.formItemError}>
+                {errorMessages.loginAttempt.length > 0 ? errorMessages.loginAttempt[0] : ""}
+            </Text>
 
             <View style={styles.callToSignUp}>
                 <Text>Don't have an account?</Text>
