@@ -82,7 +82,6 @@ export default function Register(){
                     }
                     else {
                         console.log(error)
-                        //demonstrate
                     }
                 })
                 .catch(error => {
