@@ -40,6 +40,6 @@ yarn-error.*
 app-example
 
 # firebase
-firebase-debug.log
+firebase-debug.logf
 .firebaserc
 .firebase/

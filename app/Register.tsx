@@ -2,7 +2,11 @@ import { useRouter, Link } from 'expo-router'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { View, Button, TextInput, Text, StyleSheet, Pressable, Image   } from 'react-native'
 import { useState } from "react"
+import axios from "axios"
 
+
+import Constants from 'expo-constants';
+import * as Crypto from 'expo-crypto'
 
 /*
     TODO give users option to show / hide password entries
@@ -19,6 +23,16 @@ export default function Register(){
     const emailPattern: Regex = /^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/
     const digitPattern: Regex = /[0-9]+/
     const symbolPattern: Regex = /\W+/
+    const {serverHostAddress} = Constants.expoConfig.extra
+
+    //hash using the expo crypto hashing
+    const hashPassword = async (password: string) => {
+        const hash = await Crypto.digestStringAsync(
+            Crypto.CryptoDigestAlgorithm.SHA256,
+            passwordInput
+        )
+        return hash
+    }
 
     function validateRegister(){
         let errors = {email: [], password: []}
@@ -50,10 +64,52 @@ export default function Register(){
                 errors.password.push("Password must contain at least one special character.")
             }
         }
-        console.log(errors)
-        if (Object.keys(errors).every(key => errors[key].length === 0)){
-            console.log("Submitted")
-        } else {
+
+
+
+        //create user in database
+        if (Object.keys(errors).every(key => errors[key].length === 0))
+        {
+            hashPassword(passwordInput)
+            .then(hash => {
+                let reqBody = {"email": emailInput, "password": hash}
+                console.log(reqBody)
+                axios.post(`${serverHostAddress}/register`, reqBody)
+                .then(res => {
+                    console.log(res.status)
+                    if (res.status){
+                        //redirect to onboarding
+                    }
+                    else {
+                        console.log(error)
+                        //demonstrate
+                    }
+                })
+                .catch(error => {
+                    //ChatGPT's detailed debugging steps
+                    if (error.response) {
+                      // The request was made and the server responded with a status code outside 2xx
+                      console.error("🔴 Response Error:");
+                      console.error("Status:", error.response.status);
+                      console.error("Headers:", error.response.headers);
+                      console.error("Data:", error.response.data);
+                    } else if (error.request) {
+                      // The request was made but no response was received
+                      console.error("🟡 No Response Error:");
+                      console.error("Request:", error.request);
+                    } else {
+                      // Something happened in setting up the request
+                      console.error("⚠️ Axios Config Error:", error.message);
+                    }
+
+                    // Optional: Print the full error config for debugging
+                    console.error("Axios config used:", error.config);
+                });
+            })
+
+
+        }
+        else {
             setErrorMessages(errors)
         }
     }
