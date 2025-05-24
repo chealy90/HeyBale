@@ -46,12 +46,28 @@ export default function Login(){
                 let reqBody = {"email": emailInput, "password": hash}
                 axios.post(`${serverHostAddress}/login`, reqBody)
                 .then(res => {
+
                     if (!res.data.errorMessage){
                         //success, redirect
+                        console.log("this far ok")
+                        try {
+                            console.log(res.data)
+                            AsyncStorage.multiSet([["loggedIn", "true"],
+                                                ["email", res.data.email],
+                                                ["userInfo", JSON.stringify(res.data)]])
+                            .then(()=>{router.replace("/Onboarding")})
+
+
+                        }
+                        catch (err) {
+                            console.log(err)
+                        }
+
                     }
 
                 })
                 .catch(error => {
+                    console.log("error: ", error)
                     setErrorMessages({email: [], password: [], loginAttempt: [error.response.data.errorMessage]})
                     setPasswordInput('')
                 })
