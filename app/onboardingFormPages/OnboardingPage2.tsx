@@ -1,4 +1,6 @@
-import { View, Text, TextInput, Button } from "react-native"
+import { View, Text, Button, StyleSheet } from "react-native"
+import { TextInput } from "react-native-paper"
+import Slider from '@react-native-community/slider'
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useState } from "react"
 import { Picker } from '@react-native-picker/picker';
@@ -8,20 +10,29 @@ export default function OnboardingPage2(props){
 
 
     return(
-        <View>
-            <View>
-                <Text>Your City</Text>
-                <TextInput
-                    placeHolder="city"
-                />
+        <View style={styles.formItemsContainer}>
+            <View style={styles.sliderFormItem}>
+                <Text style={styles.labelStyle}>Your Height</Text>
+                <View style={styles.sliderContainer}>
+                    <Text style={{fontSize: 15}}>30</Text>
+                    <Slider
+                        style={{width:250, height:60}}
+                        minimumValue={18}
+                        maximumValue={80}
+                        tapToSeek={true}
+                    />
+                </View>
             </View>
 
             <View>
-                <Text>Your Education</Text>
+                <Text style={styles.labelStyle}>Your Education</Text>
                 <Picker
                     selectedValue={selectedEducation}
                     onValueChange={(value, index)=>{setSelectedEducation(value)}}
+                    placeholder="Your Education"
+                    style={styles.educationFormItem}
                 >
+
                     <Picker.Item label="High School" value="High School"/>
                     <Picker.Item label="Associate's Degree" value="Associate's Degree"/>
                     <Picker.Item label="Undergraduate" value="Undergraduate"/>
@@ -34,16 +45,70 @@ export default function OnboardingPage2(props){
 
             <View>
                 <Text>Your Work</Text>
-                <View>
+                <View style={styles.employmentFormItem}>
                     <TextInput
-                        placeholder="job"
+                        style={styles.employmentTextInput}
+                        mode='outlined'
+                        label="Job"
                     />
-                    <Text>At</Text>
+                    <Text style={{fontWeight: 'bold'}}>At</Text>
                     <TextInput
-                        placeholder="company"
+                        style={styles.employmentTextInput}
+                        mode='outlined'
+                        label="Company"
                     />
                 </View>
             </View>
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    formItemsContainer: {
+        display: 'flex',
+        justifyContent: 'flex-start'
+    },
+
+    labelStyle: {
+        fontSize: 15
+    },
+
+    sliderFormItem: {
+        display: 'flex',
+    },
+
+    sliderContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center'
+    },
+
+    formItem: {
+        width: '90%',
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderRadius: 10,
+        paddingVertical: 20
+    },
+
+
+
+    educationFormItem: {
+        marginVertical: 15,
+        backgroundColor: '#fff',
+        borderWidth: 1,
+    },
+
+    employmentFormItem: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    },
+
+    employmentTextInput: {
+        width: 120
+    }
+})

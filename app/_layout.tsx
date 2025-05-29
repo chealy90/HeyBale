@@ -51,11 +51,13 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={styles.container}>
       <Stack screenOptions={{ headerShown: false }}
-        initialRouteName={isLoggedIn ? "/" : "Login"}
+        initialRouteName={isLoggedIn ? "/" : "Onboarding"}
         />
     </GestureHandlerRootView>
   );
 }
+
+// <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
 
 
 
