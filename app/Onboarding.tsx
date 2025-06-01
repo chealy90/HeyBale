@@ -12,6 +12,9 @@ import OnboardingPage4 from "./onboardingFormPages/OnboardingPage4"
 import OnboardingPage5 from "./onboardingFormPages/OnboardingPage5"
 
 import OnboardingProgressBar from "../components/OnboardingProgressBar"
+import Constants from 'expo-constants';
+const {serverHostAddress} = Constants.expoConfig.extra
+import axios from "axios"
 
 
 
@@ -33,7 +36,8 @@ export default function Onboarding(){
             smokerStatus: 'Never',
             socialStyle: 'Ambivert',
             bio: '',
-            images: ["", "", "", "", "", ""]
+            imagePaths: ["", "", "", "", "", ""],
+            imageData: ["", "", "", "", "", ""]
         })
 
 
@@ -66,6 +70,30 @@ export default function Onboarding(){
         }
         checkLogin()
     }, [])
+
+
+
+    const sendData = async () => {
+        try {
+            const email = await AsyncStorage.getItem('email')
+            axios.post(`${serverHostAddress}/setUserInfo/${email}`, formData)
+            .then(res => {
+                if (res.data){
+                    console.log(res.data)
+                }
+                else {
+                    console.log(res)
+                }
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        }
+        catch (err) {
+            console.log(err)
+        }
+
+    }
 
 
     //form pages

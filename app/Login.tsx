@@ -49,7 +49,6 @@ export default function Login(){
 
                     if (!res.data.errorMessage){
                         //success, redirect
-                        console.log("this far ok")
                         try {
                             console.log(res.data)
                             AsyncStorage.multiSet([["loggedIn", "true"],
