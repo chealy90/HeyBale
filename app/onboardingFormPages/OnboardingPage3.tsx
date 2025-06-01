@@ -4,12 +4,20 @@ import { useState } from "react"
 import { RadioButton } from "react-native-paper"
 
 export default function OnboardingPage3(props){
+    const [drinkerSelected, setDrinkerSelected] = useState('No')
+    const [smokerSelected, setSmokerSelected] = useState('No')
+    const [socialStyleSelected, setSocialStyleSelected] = useState('Ambivert')
+
+
     return(
         <View style={styles.formItemsContainer}>
             <Text>Your Values</Text>
             <View>
                 <Text>Drinker?</Text>
-                <RadioButton.Group>
+                <RadioButton.Group
+                    value={props.formData.drinkerStatus}
+                    onValueChange={value=>props.setFormData({...props.formData, drinkerStatus: value})}
+                >
                     <View style={styles.radioGroupStyles}>
                         <View>
                             <Text>Yes</Text>
@@ -32,7 +40,10 @@ export default function OnboardingPage3(props){
 
              <View>
                 <Text>Smoker?</Text>
-                <RadioButton.Group>
+                <RadioButton.Group
+                    value={props.formData.smokerStatus}
+                    onValueChange={value=>props.setFormData({...props.formData, smokerStatus: value})}
+                >
                     <View style={styles.radioGroupStyles}>
                         <View>
                             <Text>Yes</Text>
@@ -56,7 +67,10 @@ export default function OnboardingPage3(props){
 
              <View>
                 <Text>Social Style?</Text>
-                <RadioButton.Group>
+                <RadioButton.Group
+                    value={props.formData.socialStyle}
+                    onValueChange={value=>props.setFormData({...props.formData, socialStyle: value})}
+                >
                     <View style={styles.radioGroupStyles}>
                         <View>
                             <Text>Introvert</Text>

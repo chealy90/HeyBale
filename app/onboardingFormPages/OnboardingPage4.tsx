@@ -1,16 +1,19 @@
 import { useState } from "react"
-import { View, Text, TextInput, StyleSheet } from "react-native"
+import { KeyboardAvoidingView, View, Text, TextInput, StyleSheet } from "react-native"
 
 
-export default function OnboardingPage4(){
+export default function OnboardingPage4(props){
 
 
     return (
-        <View style={styles.formItemsContainer}>
+        <KeyboardAvoidingView style={styles.formItemsContainer}>
               <Text>Create a Bio</Text>
               <Text>Tell other users about yourself and your goals. Focus on positives!</Text>
-              <TextInput style={styles.bioInput}/>
-        </View>
+              <TextInput style={styles.bioInput}
+                    value={props.formData.bio}
+                    onChangeText={value=>{props.setFormData({...props.formData, bio: value})}}
+              />
+        </KeyboardAvoidingView>
     )
 }
 
@@ -22,7 +25,9 @@ const styles = StyleSheet.create({
 
     bioInput: {
         width: 300,
-        height: 200,
-        backgroundColor: '#eee'
+        height: 100,
+        backgroundColor: '#eee',
+        display: 'flex',
+        alignItems: 'flex-start'
     }
 })

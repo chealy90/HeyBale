@@ -2,10 +2,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useState, useEffect } from "react"
 import {View, Text, TextInput, StyleSheet, Pressable} from "react-native"
 import { useRouter } from "expo-router"
+
+import Header from "../components/Header"
+
 import OnboardingPage1 from "./onboardingFormPages/OnboardingPage1"
 import OnboardingPage2 from "./onboardingFormPages/OnboardingPage2"
 import OnboardingPage3 from "./onboardingFormPages/OnboardingPage3"
 import OnboardingPage4 from "./onboardingFormPages/OnboardingPage4"
+import OnboardingPage5 from "./onboardingFormPages/OnboardingPage5"
 
 import OnboardingProgressBar from "../components/OnboardingProgressBar"
 
@@ -17,11 +21,30 @@ export default function Onboarding(){
     const [isLoading, setIsLoading] = useState(true)
     const [pageNumber, setPageNumber] = useState(1)
 
+    const [formData, setFormData] = useState({
+            name: '',
+            dateOfBirth: [1970, 1, 1],
+            city: '',
+            height: 175,
+            education: 'Highschool',
+            jobTitle: '',
+            company: '',
+            drinkerStatus: 'Never',
+            smokerStatus: 'Never',
+            socialStyle: 'Ambivert',
+            bio: '',
+            images: ["", "", "", "", "", ""]
+        })
+
+
+
     const pages = {
-        1: <OnboardingPage1 />,
-        2: <OnboardingPage2 />,
-        3: <OnboardingPage3 />,
-        4: <OnboardingPage4 />
+        1: <OnboardingPage1 formData={formData} setFormData={setFormData}/>,
+        2: <OnboardingPage2 formData={formData} setFormData={setFormData}/>,
+        3: <OnboardingPage3 formData={formData} setFormData={setFormData}/>,
+        4: <OnboardingPage4 formData={formData} setFormData={setFormData}/>,
+        5: <OnboardingPage5 formData={formData} setFormData={setFormData}/>,
+
     }
 
 
@@ -54,23 +77,26 @@ export default function Onboarding(){
 
     return (
         <View style={styles.onBoardingContainer}>
+            <Header />
             <Text style={styles.pageHeader}>Tell us about you</Text>
             <OnboardingProgressBar completed={pageNumber} total={4}/>
 
             {pages[pageNumber]}
-            <View>
+            <View style={styles.buttonsContainer}>
                 {pageNumber > 1 &&
                     <Pressable
+                        style={styles.buttonStyle}
                         onPress={()=>{setPageNumber(pageNumber - 1)}}
                     >
-                        <Text>Prev</Text>
+                        <Text style={{fontWeight: 'bold'}}>Prev</Text>
                     </Pressable>
                 }
 
                 <Pressable
-                    onPress={()=>{setPageNumber(pageNumber + 1)}}
+                    style={styles.buttonStyle}
+                       onPress={()=>{setPageNumber(pageNumber + 1)}}
                 >
-                    <Text>{pageNumber == 4 ? "Finish" : "Next"}</Text>
+                    <Text style={{fontWeight: 'bold'}}>{pageNumber == 5 ? "Finish" : "Next"}</Text>
                 </Pressable>
             </View>
         </View>
@@ -81,8 +107,8 @@ const styles = StyleSheet.create({
     onBoardingContainer: {
         alignItems: 'center',
         justifyContent: 'flex-start',
-        padding: 20,
-        backgroundColor: '#FFF176',
+
+        backgroundColor: '#FFF',
         height: '100%'
     },
 
@@ -91,5 +117,21 @@ const styles = StyleSheet.create({
         justifySelf: 'flex-start',
         fontSize: 30,
         fontWeight: 'bold'
+    },
+
+    buttonsContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        width: '80%',
+        paddingTop: 10
+    },
+
+    buttonStyle: {
+        backgroundColor: '#e8d629',
+        paddingVertical: 10,
+        paddingHorizontal: 15,
+        borderRadius: 7
+
     }
 })

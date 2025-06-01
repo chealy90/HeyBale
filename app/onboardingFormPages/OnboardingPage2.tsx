@@ -7,6 +7,7 @@ import { Picker } from '@react-native-picker/picker';
 
 export default function OnboardingPage2(props){
     const [selectedEducation, setSelectedEducation] = useState("High School")
+    const [localHeightValue, setLocalHeightValue] = useState(props.formData.height)
 
 
     return(
@@ -14,12 +15,15 @@ export default function OnboardingPage2(props){
             <View style={styles.sliderFormItem}>
                 <Text style={styles.labelStyle}>Your Height</Text>
                 <View style={styles.sliderContainer}>
-                    <Text style={{fontSize: 15}}>30</Text>
+                    <Text style={{fontSize: 15}}>{props.formData.height}cm</Text>
                     <Slider
                         style={{width:250, height:60}}
-                        minimumValue={18}
-                        maximumValue={80}
+                        value={props.formData.height}
+                        minimumValue={50}
+                        maximumValue={200}
                         tapToSeek={true}
+                        onValueChange={value => {setLocalHeightValue(Math.round(value))}}
+                        onSlidingComplete={value => props.setFormData({ ...props.formData, height: Math.floor(value) })}
                     />
                 </View>
             </View>
@@ -27,8 +31,8 @@ export default function OnboardingPage2(props){
             <View>
                 <Text style={styles.labelStyle}>Your Education</Text>
                 <Picker
-                    selectedValue={selectedEducation}
-                    onValueChange={(value, index)=>{setSelectedEducation(value)}}
+                    selectedValue={props.formData.education}
+                    onValueChange={(value, index)=>{props.setFormData({...props.formData, education: value})}}
                     placeholder="Your Education"
                     style={styles.educationFormItem}
                 >
@@ -48,6 +52,8 @@ export default function OnboardingPage2(props){
                 <View style={styles.employmentFormItem}>
                     <TextInput
                         style={styles.employmentTextInput}
+                        onChangeText={value => props.setFormData({...props.formData, jobTitle: value})}
+                        value={props.formData.jobTitle}
                         mode='outlined'
                         label="Job"
                     />
@@ -56,6 +62,8 @@ export default function OnboardingPage2(props){
                         style={styles.employmentTextInput}
                         mode='outlined'
                         label="Company"
+                        value={props.formData.company}
+                        onChangeText={value => props.setFormData({...props.formData, company: value})}
                     />
                 </View>
             </View>

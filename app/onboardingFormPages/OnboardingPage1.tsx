@@ -11,6 +11,8 @@ export default function OnboardingPage1(props){
         <View style={styles.formItemsContainer}>
             <View style={styles.formItem}>
                 <TextInput
+                    value={props.formData.name}
+                    onChangeText={value => props.setFormData({...props.formData, name: value})}
                     style={styles.textInputStyle}
                     mode='outlined'
                     label="Your Name"
@@ -26,15 +28,22 @@ export default function OnboardingPage1(props){
                     style={styles.dateInputButton}
                     onPress={()=>{setShowDatePicker(true)}}
                 >
-                    <Text>11/12/2002</Text>
+                    <Text>{`${props.formData.dateOfBirth[2]}/${props.formData.dateOfBirth[1]}/${props.formData.dateOfBirth[0]}`}</Text>
                 </TouchableOpacity>
             </View>
-            {showDatePicker && <DateTimePicker value={new Date()}/>}
-
+            {showDatePicker && <DateTimePicker
+                                    value={new Date(props.formData.dateOfBirth[0], props.formData.dateOfBirth[1], props.formData.dateOfBirth[2])}
+                                    onChange={value =>
+                                    props.setFormData({...props.formData, dateOfBirth: [value.getYear(),
+                                                                                        value.getMonth(),
+                                                                                        value.getDate()]})}
+                                />}
 
 
             <View style={styles.formItem}>
                 <TextInput
+                    value={props.formData.city}
+                    onChangeText={value => props.setFormData({...props.formData, city: value})}
                     style={styles.textInputStyle}
                     mode='outlined'
                     label="Your City"
