@@ -122,7 +122,7 @@ export default function Onboarding(){
 
                 <Pressable
                     style={styles.buttonStyle}
-                       onPress={()=>{setPageNumber(pageNumber + 1)}}
+                       onPress={pageNumber==5 ? sendData : ()=>{setPageNumber(pageNumber + 1)}}
                 >
                     <Text style={{fontWeight: 'bold'}}>{pageNumber == 5 ? "Finish" : "Next"}</Text>
                 </Pressable>

@@ -51,7 +51,7 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={styles.container}>
       <Stack screenOptions={{ headerShown: false }}
-        initialRouteName={isLoggedIn ? "/" : "Onboarding"}
+        initialRouteName={isLoggedIn ? "/" : "Login"}
         />
     </GestureHandlerRootView>
   );

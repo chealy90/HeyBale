@@ -26,10 +26,10 @@ export default function EditableImageContainer(props){
 
         if (!result.canceled) {
             let newPhotoPaths = [...props.formData.imagePaths]
-            let newPhotoData = [...props.formData.imageData]
+
             newPhotoPaths[props.index] = result.assets[0].uri
-            newPhotoData[props.index] = result.assets[0].base64
-            props.setFormData({...props.formData, imagePaths: newPhotoPaths, imageData: newPhotoData})
+
+            props.setFormData({...props.formData, imagePaths: newPhotoPaths})
             setContainsImage(true)
             setShowModal(false)
         }
@@ -93,11 +93,11 @@ export default function EditableImageContainer(props){
                                       }}
                                 onPress={()=>{
                                     let newPhotoPaths = [...props.formData.imagePaths]
-                                    let newPhotoData = [...props.formData.imageData]
-                                    newPhotoPaths[props.index] = ""
-                                    newPhotoData[props.index] = ""
 
-                                    props.setFormData({...props.formData, imagePaths: newPhotoPaths, imageData: newPhotoData})
+                                    newPhotoPaths[props.index] = ""
+
+
+                                    props.setFormData({...props.formData, imagePaths: newPhotoPaths})
                                     setContainsImage(false)
                                     setShowModal(false)
                                 }}
